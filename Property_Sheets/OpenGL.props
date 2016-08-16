@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <IncludePath>C:\Users\logan.pletcher.AIE\Documents\Visual Studio 2015\Projects\1IntrotoOpenGL\dep\glm-0.9.7.0\glm;C:\Users\logan.pletcher.AIE\Documents\Visual Studio 2015\Projects\1IntrotoOpenGL\dep\glfw\include\GLFW;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\logan.pletcher.AIE\Documents\Visual Studio 2015\Projects\1IntrotoOpenGL\dep\glfw\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>
