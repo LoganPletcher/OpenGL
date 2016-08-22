@@ -12,13 +12,13 @@ using glm::mat4;
 void Update(mat4 *Sun, mat4 *Planet, mat4 *Moon)
 {
 	*Sun = glm::rotate(*Sun, 1.0f, vec3(0,1,0));
-	*Planet = *Sun * glm::translate(vec3(5));
+	//*Planet = *Sun * glm::translate(vec3(5));
 }
 
 void Draw(mat4 Sun, mat4 Planet, mat4 Moon)
 {
 	Gizmos::addSphere(vec3(Sun[3][0], Sun[3][1], Sun[3][2]),3,50,50, vec4(1.0f, 0.62f, 0.0f, 1), &Sun);
-	Gizmos::addSphere(vec3(Planet[3][0], Planet[3][1], Planet[3][2]), .5, 25, 25, vec4(0.0f, 0.5f, 0.5f, 1), &Planet);
+	Gizmos::addSphere(vec3(Planet[3][0], Planet[3][1], Planet[3][2]), .5, 25, 25, vec4(0.0f, 0.5f, 0.5f, 1)/*, &Planet*/);
 	Gizmos::addSphere(vec3(Moon[3][0], Moon[3][1], Moon[3][2]), .2, 12, 12, vec4(0.5f, 0.5f, 0.5f, 1), &Moon);
 }
 
