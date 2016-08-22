@@ -7,7 +7,20 @@
 #include <glm\ext.hpp>
 using glm::vec3;
 using glm::vec4;
-using glm::mat4;
+using glm::mat4;
+
+void Update(mat4 *Sun, mat4 *Planet, mat4 *Moon)
+{
+	*Sun = glm::rotate(*Sun, 1.0f, vec3(0,1,0));
+	*Planet = *Sun * glm::translate(vec3(5));
+}
+
+void Draw(mat4 Sun, mat4 Planet, mat4 Moon)
+{
+	Gizmos::addSphere(vec3(Sun[3][0], Sun[3][1], Sun[3][2]),3,50,50, vec4(1.0f, 0.62f, 0.0f, 1), &Sun);
+	Gizmos::addSphere(vec3(Planet[3][0], Planet[3][1], Planet[3][2]), .5, 25, 25, vec4(0.0f, 0.5f, 0.5f, 1), &Planet);
+	Gizmos::addSphere(vec3(Moon[3][0], Moon[3][1], Moon[3][2]), .2, 12, 12, vec4(0.5f, 0.5f, 0.5f, 1), &Moon);
+}
 
 int main()
 {
@@ -15,16 +28,10 @@ int main()
 	float r = 0.1f;
 	float g = 0.1f;
 	float b = 0.1f;
-	vec3 Sun = vec3(5, 2, 0);
-	vec3 Planet = Sun + vec3(0, .5, 0);
-	float PlanetX, PlanetZ;
-	int PlanetCounter = 0;
-	vec3 Moon = Planet;
-	float MoonX, MoonZ;
-	int MoonCounter = 0;
+	mat4 Sun = mat4(1);
+	mat4 Planet = glm::translate(Sun, vec3(5));
+	mat4 Moon = glm::translate(Planet, vec3(1.0));
 	vec3 EulerAngles(0, 1, 0);
-	glm::quat Quaternion = glm::quat(EulerAngles);
-	//std::cout << TurnMatrix.length[1] << std::endl;
 	if (glfwInit() == false)
 		return -1;
 	GLFWwindow* window = glfwCreateWindow(1280, 720, "Computer Graphics", nullptr, nullptr);
@@ -32,7 +39,8 @@ int main()
 	{
 		glfwTerminate();
 		return -2;
-	}	
+	}
+	
 	glfwMakeContextCurrent(window);
 	
 	if (ogl_LoadFunctions() == ogl_LOAD_FAILED)
@@ -42,9 +50,10 @@ int main()
 		return -3;
 	}
 	Gizmos::create();
-	mat4 view = glm::lookAt(vec3(10, 5, 20), vec3(0), vec3(0, 1, 0));
-	mat4 projection = glm::perspective(glm::pi<float>() * 0.25f,
-		16 / 9.f, 0.1f, 1000.f);	mat4 model = mat4(1.0);
+	mat4 view = glm::lookAt(vec3(5, 30, 10), vec3(0), vec3(0, 1, 0));
+	mat4 projection = glm::perspective(glm::pi<float>() * 0.15f,
+		16 / 9.f, 0.1f, 1000.f);
+	mat4 model = mat4(1.0);
 
 	auto major = ogl_GetMajorVersion();
 	auto minor = ogl_GetMinorVersion();
@@ -79,7 +88,7 @@ int main()
 					vec3(-10, 0, -10 + i),
 					i == 10 ? white : black);
 			}
-			if (PlanetCounter > 359)
+			/*if (PlanetCounter > 359)
 				PlanetCounter = 0;
 			else
 				PlanetCounter++;
@@ -90,10 +99,15 @@ int main()
 			else
 				MoonCounter++;
 			MoonX = cos(MoonCounter*(3.14159 / 180)*3)*1.0f + PlanetX;
-			MoonZ = sin(MoonCounter*(3.14159 / 180)*3)*1.0f + PlanetZ;
-			Gizmos::addSphere(Sun, 3, 50, 50, vec4(0.5f, 0.25f, 0.0f, 1), &(model = glm::rotate(model, 1.0f, EulerAngles)));
-			Gizmos::addSphere(Planet + vec3(PlanetX,0,PlanetZ), .5, 25, 25, vec4(0.0f, 0.5f, 0.5f, 1), &(model = glm::rotate(model, 1.0f, EulerAngles)));
-			Gizmos::addSphere(Moon + vec3(MoonX,0,MoonZ), .2, 12, 12, vec4(0.5f, 0.5f, 0.5f, 1), &(model = glm::rotate(model, .5f, EulerAngles)));
+			MoonZ = sin(MoonCounter*(3.14159 / 180)*3)*1.0f + PlanetZ;*/
+			//Gizmos::draw(Sun);
+			//glm::translate();
+			//Sun = glm::rotate(Sun, 1.0f, vec3(0, 1, 0));
+			//Gizmos::addSphere(vec3(Sun[3][0], Sun[3][1], Sun[3][2]), 3, 50, 50, vec4(1.0f, 0.25f, 0.0f, 1), &Sun);
+			//Gizmos::addSphere(vec3(Planet[3][0], Planet[3][1], Planet[3][2]), .5, 25, 25, vec4(0.0f, 0.5f, 0.5f, 1), &(model = glm::rotate(model, 1.0f, EulerAngles)));
+			//Gizmos::addSphere(vec3(Moon[3][0], Moon[3][1], Moon[3][2]), .2, 12, 12, vec4(0.5f, 0.5f, 0.5f, 1), &(model = glm::rotate(model, .5f, EulerAngles)));
+			Update(&Sun, &Planet, &Moon);
+			Draw(Sun,Planet,Moon);
 			Gizmos::draw(projection * view);
 			glfwSwapBuffers(window);
 			glfwPollEvents();
