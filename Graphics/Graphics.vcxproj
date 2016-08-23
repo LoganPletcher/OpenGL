@@ -117,7 +117,11 @@
     <ClCompile Include="Gizmos.cpp" />
     <ClCompile Include="gl_core_4_4.c" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="OpenGL_Star_System.cpp" />
+    <ClCompile Include="OPENGL_STAR_SYSTEM.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="OPENGL_STAR_SYSTEM.h" />
+    <ClInclude Include="Program.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
