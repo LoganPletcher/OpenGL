@@ -1,13 +1,13 @@
-#define GLM_FORCE_PURE
-#include "OPENGL_STAR_SYSTEM.h"
+#include "StarSystem.h"
 
 int main()
 {
-	OpenGL_Star_System Sol = OpenGL_Star_System();
+	StarSystem Sol = StarSystem();
 
-	Sol.Start();
-	while (Sol.Update() == true)
-		Sol.Draw();
-	Sol.Quit();
+	Sol.startup();
+	while (Sol.update(3.111) == true)
+		Sol.draw();
+	Sol.shutdown();
+
 	return 0;
 }

@@ -72,7 +72,10 @@
     <Import Project="..\Property_Sheets\OpenGL.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(SolutionDir)dep\glm-0.9.7.0\glm;$(SolutionDir)dep\glfw\include\GLFW;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)dep\glfw\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -114,13 +117,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BaseApplication.cpp" />
     <ClCompile Include="Gizmos.cpp" />
     <ClCompile Include="gl_core_4_4.c" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="OPENGL_STAR_SYSTEM.cpp" />
+    <ClCompile Include="StarSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="OPENGL_STAR_SYSTEM.h" />
+    <ClInclude Include="BaseApplication.h" />
+    <ClInclude Include="StarSystem.h" />
     <ClInclude Include="Program.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

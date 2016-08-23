@@ -1,22 +1,22 @@
-#include "OPENGL_STAR_SYSTEM.h"
+#include "StarSystem.h"
 #include <iostream>
 
-int OpenGL_Star_System::Start()
+bool StarSystem::startup()
 {
 	if (glfwInit() == false)
-		return -1;
+		return false;
 	window = glfwCreateWindow(1280, 720, "Computer Graphics", nullptr, nullptr);
 	if (window == nullptr)
 	{
 		glfwTerminate();
-		return -2;
+		return false;
 	}
 	glfwMakeContextCurrent(window);
 	if (ogl_LoadFunctions() == ogl_LOAD_FAILED)
 	{
 		glfwDestroyWindow(window);
 		glfwTerminate();
-		return -3;
+		return false;
 	}
 	Gizmos::create();
 	view = glm::lookAt(vec3(20, 60, 20), vec3(0), vec3(0, 1, 0));
@@ -27,29 +27,34 @@ int OpenGL_Star_System::Start()
 	printf("GL: %i.%i\n", major, minor);
 	glClearColor(0.25f, 0.25f, 0.25f, 1);
 	glEnable(GL_DEPTH_TEST);
-	return 0;
+	Sun = mat4(1);
+	Planet = glm::translate(Sun, vec3(5));
+	Moon = glm::translate(Planet, vec3(1.0));
+	return true;
 }
 
-bool OpenGL_Star_System::Update()
+bool StarSystem::update(float deltaTime)
 {
 	while (glfwWindowShouldClose(window) == false &&
-		glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS) {
+		glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS) 
+	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		Gizmos::clear();
 		Gizmos::addTransform(glm::mat4(1));
 		Sun = Sun * glm::rotate((1.0f*(3.14f / 180.0f)), vec3(0, 1, 0));
 		Planet = Sun * glm::translate(vec3(5, 0, 0));
-		Moon = Planet * glm::rotate((1.0f*(3.14f / 180.0f)), vec3(0, 1, 0)) * glm::translate(vec3(2, 0, 0));
+		Moon = Planet * glm::rotate((1.0f*(3.14f / 180.0f)), vec3(0, 1, 0)) * glm::translate(Sun, vec3(1, 0, 0));
 		return true;
 	}
 	return false;
 }
 
-void OpenGL_Star_System::Draw()
+void StarSystem::draw()
 {
 	vec4 white(1);
 	vec4 black(0, 0, 0, 1);
-	for (int i = 0; i < 21; ++i) {
+	for (int i = 0; i < 21; ++i) 
+	{
 		Gizmos::addLine(vec3(-10 + i, 0, 10),
 			vec3(-10 + i, 0, -10),
 			i == 10 ? white : black);
@@ -66,7 +71,7 @@ void OpenGL_Star_System::Draw()
 	glfwPollEvents();
 }
 
-void OpenGL_Star_System::Quit()
+void StarSystem::shutdown()
 {
 	Gizmos::destroy();
 	glfwDestroyWindow(window);

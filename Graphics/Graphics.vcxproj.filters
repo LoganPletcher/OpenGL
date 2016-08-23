@@ -24,15 +24,21 @@
     <ClCompile Include="Gizmos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OPENGL_STAR_SYSTEM.cpp">
+    <ClCompile Include="StarSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="OPENGL_STAR_SYSTEM.h">
+    <ClInclude Include="Program.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Program.h">
+    <ClInclude Include="StarSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseApplication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
