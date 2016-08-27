@@ -2,12 +2,17 @@
 
 int main()
 {
-	StarSystem Sol = StarSystem();
+	Program* Sol = new StarSystem();
+	if (Sol->startup() == true)
+	{
+		while (Sol->update() == true)
+		{
+			Sol->draw();
+		}
+		Sol->shutdown();
+	}
 
-	Sol.startup();
-	while (Sol.update(3.111) == true)
-		Sol.draw();
-	Sol.shutdown();
+	delete Sol;
 
 	return 0;
 }

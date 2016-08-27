@@ -10,17 +10,17 @@
 #include "Gizmos.h"
 #include <glm\ext.hpp>
 
-#include "BaseApplication.h"
+#include "Program.h"
 
 using glm::vec3;
 using glm::vec4;
 using glm::mat4;
 
-class StarSystem : public BaseApplication
+class StarSystem : public Program
 {
 public:
 	bool startup() override;
-	bool update(float deltaTime) override;
+	bool update() override;
 	void draw() override;
 	void shutdown() override;
 	

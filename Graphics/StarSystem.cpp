@@ -19,7 +19,7 @@ bool StarSystem::startup()
 		return false;
 	}
 	Gizmos::create();
-	view = glm::lookAt(vec3(20, 60, 20), vec3(0), vec3(0, 1, 0));
+	view = glm::lookAt(vec3(20, 30, 20), vec3(0), vec3(0, 1, 0));
 	projection = glm::perspective(glm::pi<float>() * 0.15f,
 		16 / 9.f, 0.1f, 1000.f);
 	auto major = ogl_GetMajorVersion();
@@ -33,7 +33,7 @@ bool StarSystem::startup()
 	return true;
 }
 
-bool StarSystem::update(float deltaTime)
+bool StarSystem::update()
 {
 	while (glfwWindowShouldClose(window) == false &&
 		glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS) 
