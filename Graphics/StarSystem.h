@@ -34,6 +34,11 @@ private:
 	GLFWwindow* window;
 	mat4 view;
 	mat4 projection;
+	double DCPosX, DCPosY;
+	float FCPosX;
+	float currentTime = glfwGetTime();
+	float previousTime = currentTime;
+	float deltaTime = 0;
 };
 
 #endif

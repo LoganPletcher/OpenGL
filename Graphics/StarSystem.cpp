@@ -22,6 +22,7 @@ bool StarSystem::startup()
 	view = glm::lookAt(vec3(20, 30, 20), vec3(0), vec3(0, 1, 0));
 	projection = glm::perspective(glm::pi<float>() * 0.15f,
 		16 / 9.f, 0.1f, 1000.f);
+	//projection = glm::ortho(-32.f, 32.f, -18.f, 18.f, 0.f, 100.f);
 	auto major = ogl_GetMajorVersion();
 	auto minor = ogl_GetMinorVersion();
 	printf("GL: %i.%i\n", major, minor);
@@ -44,6 +45,21 @@ bool StarSystem::update()
 		Sun = Sun * glm::rotate((1.0f*(3.14f / 180.0f)), vec3(0, 1, 0));
 		Planet = Sun * glm::translate(vec3(5, 0, 0));
 		Moon = Planet * glm::rotate((1.0f*(3.14f / 180.0f)), vec3(0, 1, 0)) * glm::translate(Sun, vec3(1, 0, 0));
+		currentTime = glfwGetTime();
+		deltaTime = (currentTime - previousTime);
+		previousTime = currentTime;
+		glfwGetCursorPos(window, &DCPosX, &DCPosY);
+		FCPosX = std::abs(DCPosX - 640);
+		if (DCPosX - 640 > 0)
+		{
+			view[0] = vec4{cos(FCPosX),0,-sin(FCPosX),0};
+			view[1] = vec4{ 0,1,0,0 };
+			view[2] = vec4{ sin(FCPosX),0,cos(FCPosX),0 };
+		}
+		else if (DCPosX - 640 < 0)
+			view = glm::rotate(view, -3.f * deltaTime, vec3(0, 1, 0));
+		glfwSetCursorPos(window, 1280 - (1280 / 2), 720 - (720 / 2));
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 		return true;
 	}
 	return false;
