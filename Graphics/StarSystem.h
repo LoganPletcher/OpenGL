@@ -23,6 +23,9 @@ public:
 	bool update() override;
 	void draw() override;
 	void shutdown() override;
+	mat4 xRot(mat4, float);
+	mat4 yRot(mat4, float);
+	mat4 zRot(mat4, float);
 	
 private:
 	float r;
@@ -39,6 +42,8 @@ private:
 	float currentTime = glfwGetTime();
 	float previousTime = currentTime;
 	float deltaTime = 0;
+	float yAngle = 0;
+	float xAngle = 0;
 };
 
 #endif

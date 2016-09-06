@@ -49,17 +49,33 @@ bool StarSystem::update()
 		deltaTime = (currentTime - previousTime);
 		previousTime = currentTime;
 		glfwGetCursorPos(window, &DCPosX, &DCPosY);
-		FCPosX = std::abs(DCPosX - 640);
+		std::cout << view[0][0] << "," << view[0][1] << "," << view[0][2] << "," << view[0][3] << std::endl;
+		std::cout << view[1][0] << "," << view[1][1] << "," << view[1][2] << "," << view[1][3] << std::endl;
+		std::cout << view[2][0] << "," << view[2][1] << "," << view[2][2] << "," << view[2][3] << std::endl;
+		std::cout << view[3][0] << "," << view[3][1] << "," << view[3][2] << "," << view[3][3] << "\n\n";
 		if (DCPosX - 640 > 0)
 		{
-			view[0] = vec4{cos(FCPosX),0,-sin(FCPosX),0};
-			view[1] = vec4{ 0,1,0,0 };
-			view[2] = vec4{ sin(FCPosX),0,cos(FCPosX),0 };
+			//view = glm::rotate(view, 3.f * deltaTime, vec3(0, 1, 0));
+			yAngle += deltaTime;
+			//view = yRot(view, yAngle);
 		}
 		else if (DCPosX - 640 < 0)
-			view = glm::rotate(view, -3.f * deltaTime, vec3(0, 1, 0));
-		glfwSetCursorPos(window, 1280 - (1280 / 2), 720 - (720 / 2));
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+		{
+			//view = glm::rotate(view, -3.f * deltaTime, vec3(0, 1, 0));
+			yAngle -= deltaTime;
+			//view = yRot(view, yAngle);
+		}
+		//glfwSetCursorPos(window, 1280 - (1280 / 2), 720 - (720 / 2));
+		//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+		xAngle++;
+		std::cout << yAngle << "\n\n";
+		view = yRot(view, yAngle);
+		//view = glm::rotate(view, 3.f * deltaTime, vec3(0, 1, 0));
+		
+		view = zRot(view, yAngle);
+		view = xRot(view, yAngle);
+		view[1][1] = .685994;
+		view[1][2] = .727607;
 		return true;
 	}
 	return false;
@@ -92,4 +108,35 @@ void StarSystem::shutdown()
 	Gizmos::destroy();
 	glfwDestroyWindow(window);
 	glfwTerminate();
+}
+
+mat4 StarSystem::yRot(mat4 matrix, float angle)
+{
+
+	matrix[0][0] = cos(angle);
+	matrix[0][2] = sin(angle);
+	matrix[2][0] = -sin(angle);
+	matrix[2][2] = cos(angle);
+
+	return matrix;
+}
+
+mat4 StarSystem::xRot(mat4 matrix, float angle)
+{
+	matrix[1][1] = cos(angle);
+	matrix[1][2] = -sin(angle);
+	matrix[2][1] = sin(angle);
+	matrix[2][2] = cos(angle);
+
+	return matrix;
+}
+
+mat4 StarSystem::zRot(mat4 matrix, float angle)
+{
+	matrix[0][0] = cos(angle);
+	matrix[0][1] = -sin(angle);
+	matrix[1][0] = sin(angle);
+	matrix[1][1] = cos(angle);
+
+	return matrix;
 }
