@@ -41,6 +41,7 @@ private:
 	float previousTime = currentTime;
 	float deltaTime = 0;
 	FlyCamera cam;
+	float degrees = 0;
 };
 
 #endif

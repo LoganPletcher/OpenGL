@@ -35,7 +35,9 @@ bool StarSystem::startup()
 
 bool StarSystem::update()
 {
-	cam.update(deltaTime);
+	
+	cam.update(degrees*(3.1415926/180));
+	degrees++;
 	while (glfwWindowShouldClose(window) == false &&
 		glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS) 
 	{

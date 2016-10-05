@@ -76,6 +76,10 @@
     <IncludePath>$(SolutionDir)dep\glm-0.9.7.0\glm;$(SolutionDir)dep\glfw\include\GLFW;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)dep\glfw\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LibraryPath>$(SolutionDir)dep\glfw\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)dep\glfw\include\GLFW;$(SolutionDir)dep\glm-0.9.7.0\glm;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -117,6 +121,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="FlyCamera.cpp" />
     <ClCompile Include="Gizmos.cpp" />
     <ClCompile Include="gl_core_4_4.c" />
     <ClCompile Include="main.cpp" />
@@ -124,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Flycamera.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="StarSystem.h" />
   </ItemGroup>

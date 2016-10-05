@@ -20,7 +20,7 @@ public:
 	virtual bool update(float deltatime) = 0;
 	void setPerspective(float fieldOfView, float aspectRatio, float Near, float Far);
 	void setLookAt(vec3 from, vec3 to, vec3 up);
-	void setPosition(vec3 position);
+	void setPosition(vec4 difference);
 	mat4 getWorldTransform();
 	mat4 getView();
 	mat4 getProjection();

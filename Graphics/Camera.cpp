@@ -14,9 +14,12 @@ void Camera::setLookAt(vec3 from, vec3 to, vec3 up)
 	projectionViewTransform = projectionTransform * viewTransform;
 }
 
-void Camera::setPosition(vec3 position)
+void Camera::setPosition(vec4 difference)
 {
-	worldTransform[3].xyz = position;
+	//float newX = viewTransform[0].x * cos(radians) + viewTransform[0].z * sin(radians);
+	//float newZ = viewTransform[0].x * -sin(radians) + viewTransform[0].z * cos(radians);
+	//viewTransform[0].xyz = vec3(newX, viewTransform[0].y, newZ);
+	projectionViewTransform[3] += difference;
 }
 
 mat4 Camera::getWorldTransform()
