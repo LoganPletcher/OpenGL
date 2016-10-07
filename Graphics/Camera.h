@@ -9,6 +9,7 @@
 #include <iostream>
 #include "Gizmos.h"
 #include <glm\ext.hpp>
+#include <glm\gtc\constants.hpp>
 
 using glm::vec3;
 using glm::vec4;
@@ -21,16 +22,20 @@ public:
 	void setPerspective(float fieldOfView, float aspectRatio, float Near, float Far);
 	void setLookAt(vec3 from, vec3 to, vec3 up);
 	void setPosition(vec4 difference);
+	void changeRotation(float rad);
 	mat4 getWorldTransform();
 	mat4 getView();
 	mat4 getProjection();
 	mat4 getProjectionView();
 	void updateProjectionViewTransform();
-private:
+
+protected:
 	mat4 worldTransform;
 	mat4 viewTransform;
 	mat4 projectionTransform;
 	mat4 projectionViewTransform;
+	
+private:
 
 };
 

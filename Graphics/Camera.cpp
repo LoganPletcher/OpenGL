@@ -19,7 +19,15 @@ void Camera::setPosition(vec4 difference)
 	//float newX = viewTransform[0].x * cos(radians) + viewTransform[0].z * sin(radians);
 	//float newZ = viewTransform[0].x * -sin(radians) + viewTransform[0].z * cos(radians);
 	//viewTransform[0].xyz = vec3(newX, viewTransform[0].y, newZ);
-	projectionViewTransform[3] += difference;
+	worldTransform[3] += difference;
+}
+
+void Camera::changeRotation(float rad)
+{
+	worldTransform[0].x = worldTransform[0].x * cos(rad);
+	worldTransform[0].z = worldTransform[0].z * sin(rad);
+	worldTransform[2].x = worldTransform[2].x * -sin(rad);
+	worldTransform[2].z = worldTransform[2].z * cos(rad);
 }
 
 mat4 Camera::getWorldTransform()
