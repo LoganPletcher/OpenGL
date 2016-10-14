@@ -22,12 +22,22 @@ void Camera::setPosition(vec4 difference)
 	worldTransform[3] += difference;
 }
 
-void Camera::changeRotation(float rad)
+void Camera::changeYRotation(float rad)
 {
-	worldTransform[0].x = worldTransform[0].x * cos(rad);
-	worldTransform[0].z = worldTransform[0].z * sin(rad);
-	worldTransform[2].x = worldTransform[2].x * -sin(rad);
-	worldTransform[2].z = worldTransform[2].z * cos(rad);
+	rotationMat[0] = { cos(rad), 0, sin(rad), 0 };
+	rotationMat[1] = { 0, 1, 0, 0 };
+	rotationMat[2] = { -sin(rad), 0, cos(rad), 0 };
+	rotationMat[3] = { 0, 0, 0, 1 };
+	worldTransform *= rotationMat;
+}
+
+void Camera::changeXRotation(float rad)
+{
+	rotationMat[0] = { 1, 0, 0, 0 };
+	rotationMat[1] = { 0, cos(rad), -sin(rad), 0 };
+	rotationMat[2] = { 0, sin(rad), cos(rad), 0 };
+	rotationMat[3] = { 0, 0, 0, 1 };
+	worldTransform *= rotationMat;
 }
 
 mat4 Camera::getWorldTransform()

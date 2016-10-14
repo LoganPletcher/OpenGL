@@ -22,7 +22,8 @@ public:
 	void setPerspective(float fieldOfView, float aspectRatio, float Near, float Far);
 	void setLookAt(vec3 from, vec3 to, vec3 up);
 	void setPosition(vec4 difference);
-	void changeRotation(float rad);
+	void changeYRotation(float rad);
+	void changeXRotation(float rad);
 	mat4 getWorldTransform();
 	mat4 getView();
 	mat4 getProjection();
@@ -34,7 +35,7 @@ protected:
 	mat4 viewTransform;
 	mat4 projectionTransform;
 	mat4 projectionViewTransform;
-	
+	mat4 rotationMat;
 private:
 
 };
